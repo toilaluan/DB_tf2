@@ -1,4 +1,3 @@
-opencv
 imgaug
 pyclipper
 shapely
