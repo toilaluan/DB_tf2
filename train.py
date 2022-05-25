@@ -1,8 +1,8 @@
 import datetime
 import os.path as osp
-from keras import callbacks
-from keras import optimizers
-from keras.utils import get_file
+from tensorflow.keras import callbacks
+from tensorflow.keras import optimizers
+from tensorflow.keras.utils import get_file
 import os
 
 from generator import generate
