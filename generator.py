@@ -47,13 +47,14 @@ def show_polys(image, anns, window_name):
 
 
 def draw_thresh_map(polygon, canvas, mask, shrink_ratio=0.4):
+    # print(polygon)
     polygon = np.array(polygon)
     assert polygon.ndim == 2
     assert polygon.shape[1] == 2
-
     polygon_shape = Polygon(polygon)
     distance = polygon_shape.area * (1 - np.power(shrink_ratio, 2)) / polygon_shape.length
     subject = [tuple(l) for l in polygon]
+    # print(subject)
     padding = pyclipper.PyclipperOffset()
     padding.AddPath(subject, pyclipper.JT_ROUND, pyclipper.ET_CLOSEDPOLYGON)
     padded_polygon = np.array(padding.Execute(distance)[0])
@@ -83,10 +84,11 @@ def draw_thresh_map(polygon, canvas, mask, shrink_ratio=0.4):
     xmax_valid = min(max(0, xmax), canvas.shape[1] - 1)
     ymin_valid = min(max(0, ymin), canvas.shape[0] - 1)
     ymax_valid = min(max(0, ymax), canvas.shape[0] - 1)
+    # print(distance_map.shape)
     canvas[ymin_valid:ymax_valid + 1, xmin_valid:xmax_valid + 1] = np.fmax(
         1 - distance_map[
-            ymin_valid - ymin:ymax_valid - ymin,
-            xmin_valid - xmin:xmax_valid - xmin],
+            ymin_valid - ymin:ymax_valid - ymax+height,
+            xmin_valid - xmin:xmax_valid - xmax+width],
         canvas[ymin_valid:ymax_valid + 1, xmin_valid:xmax_valid + 1])
 
 

@@ -23,7 +23,7 @@ model, prediction_model = dbnet()
 # resnet_filepath = get_file(resnet_filename, resnet_resource, cache_subdir='models',
 #                            md5_hash='3e9f4e4f77bbe2c9bec13b53ee1c2319')
 # model.load_weights(resnet_filepath, by_name=True, skip_mismatch=True)
-model.compile(optimizer=optimizers.Adam(lr=1e-3), loss={'db_loss': lambda y_true, y_pred: y_pred})
+model.compile(optimizer=optimizers.Adam(learning_rate=1e-3), loss={'db_loss': lambda y_true, y_pred: y_pred})
 checkpoint = callbacks.ModelCheckpoint(
     osp.join(checkpoints_dir, 'db_{epoch:02d}_{loss:.4f}_{val_loss:.4f}.h5'),
     verbose=1,
